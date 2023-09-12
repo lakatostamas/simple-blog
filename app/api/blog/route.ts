@@ -15,7 +15,7 @@ const getNormalizedQueries = (qs: URLSearchParams) => {
   };
 };
 
-const PAGE_SIZE = 5;
+const PAGE_SIZE = 3;
 
 export async function GET(req: NextRequest) {
   const { titleQuery, categoryIdQuery, pageQuery } = getNormalizedQueries(
