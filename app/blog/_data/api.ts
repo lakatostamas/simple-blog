@@ -10,7 +10,7 @@ const extendedApi = api.injectEndpoints({
       void
     >({
       query: () => ({
-        url: "/blog",
+        url: "/post",
         method: "GET",
       }),
     }),
