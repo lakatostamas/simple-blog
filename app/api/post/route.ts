@@ -8,6 +8,8 @@ const getNormalizedQueries = (qs: URLSearchParams) => {
   const categoryId = searchParams.get("category");
   const pageQuery = searchParams.get("page");
 
+  console.log(searchParams.get("category"));
+
   return {
     titleQuery,
     categoryIdQuery: categoryId ? parseInt(categoryId, 10) : null,

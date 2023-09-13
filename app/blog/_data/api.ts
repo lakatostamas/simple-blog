@@ -1,5 +1,5 @@
 import { api } from "@/src/redux/api";
-import { IPost } from "./model";
+import { ICategory, IPost } from "./model";
 
 const extendedApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -7,10 +7,21 @@ const extendedApi = api.injectEndpoints({
       {
         posts: Array<IPost>;
       },
+      string | void
+    >({
+      query: (query) => ({
+        url: `/post?${query}`,
+        method: "GET",
+      }),
+    }),
+    getCategories: builder.query<
+      {
+        categories: Array<ICategory>;
+      },
       void
     >({
       query: () => ({
-        url: "/post",
+        url: "/category",
         method: "GET",
       }),
     }),
@@ -18,4 +29,4 @@ const extendedApi = api.injectEndpoints({
   overrideExisting: false,
 });
 
-export const { useGetPostsQuery } = extendedApi;
+export const { useGetPostsQuery, useGetCategoriesQuery } = extendedApi;
