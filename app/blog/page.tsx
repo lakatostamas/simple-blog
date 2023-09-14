@@ -6,8 +6,9 @@ import qs from "qs";
 
 import { useDebounce } from "@/src/hooks/useDebounce";
 
-import { useGetCategoriesQuery, useGetPostsQuery } from "./_data/api";
 import Post from "./_components/Post";
+import { useGetCategoriesQuery, useGetPostsQuery } from "./_data/api";
+import { normalizeCategories } from "./_utils/normalizeCategories";
 
 function getInitialPage(page: string | null) {
   if (!page) {
@@ -56,16 +57,9 @@ export default function BlogPage() {
       return [];
     }
 
-    return (postsData.posts ?? []).map((post) => ({
-      ...post,
-      categories: post.categories
-        .map((categoryId) =>
-          (categoriesData?.categories ?? []).find(
-            (category) => category.id === categoryId
-          )
-        )
-        .filter(Boolean),
-    }));
+    return (postsData.posts ?? []).map((post) =>
+      normalizeCategories(post, categoriesData?.categories)
+    );
   }, [categoriesData, postsData]);
 
   const totalPageCount = useMemo(
@@ -117,7 +111,7 @@ export default function BlogPage() {
 
       <div className="flex flex-col items-center gap-10 lg:flex-row lg:items-stretch">
         {normalizedPosts.map((post) => (
-          <Post key={post.id} post={post} />
+          <Post key={post.id} post={post} variant="list" />
         ))}
       </div>
       <div className="flex justify-between mt-10">

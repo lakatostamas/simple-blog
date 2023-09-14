@@ -16,6 +16,17 @@ const extendedApi = api.injectEndpoints({
         method: "GET",
       }),
     }),
+    getPost: builder.query<
+      {
+        post: IPost;
+      },
+      string
+    >({
+      query: (slug) => ({
+        url: `/post/${slug}`,
+        method: "GET",
+      }),
+    }),
     getCategories: builder.query<
       {
         categories: Array<ICategory>;
@@ -31,4 +42,5 @@ const extendedApi = api.injectEndpoints({
   overrideExisting: false,
 });
 
-export const { useGetPostsQuery, useGetCategoriesQuery } = extendedApi;
+export const { useGetPostsQuery, useGetPostQuery, useGetCategoriesQuery } =
+  extendedApi;

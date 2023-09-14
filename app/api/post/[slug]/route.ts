@@ -4,11 +4,10 @@ import blog from "../../blog.json";
 
 export async function GET(
   _req: NextApiRequest,
-  { params }: { params: { pid: string } }
+  { params }: { params: { slug: string } }
 ) {
-  const { pid } = params;
-  const postId = parseInt(pid, 10);
-  const post = blog.posts.find((post) => post.id === postId);
+  const { slug } = params;
+  const post = blog.posts.find((post) => post.slug === slug);
 
   if (!post) {
     return new Response("Not found", {
