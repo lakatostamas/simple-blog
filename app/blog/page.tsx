@@ -3,21 +3,33 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import qs from "qs";
+
+import { useDebounce } from "@/src/hooks/useDebounce";
+
 import { useGetCategoriesQuery, useGetPostsQuery } from "./_data/api";
 import Post from "./_components/Post";
-import { useDebounce } from "@/src/hooks/useDebounce";
+
+function getInitialPage(page: string | null) {
+  if (!page) {
+    return 0;
+  }
+
+  const parsedPage = parseInt(page, 10);
+
+  return isNaN(parsedPage) ? 0 : parsedPage;
+}
 
 export default function BlogPage() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [page, setPage] = useState(
-    parseInt(searchParams.get("page") as string, 10) ?? 0
-  );
+  const [page, setPage] = useState(getInitialPage(searchParams.get("page")));
   const [category, setCategory] = useState<string>(
     searchParams.get("category") ?? ""
   );
-  const [searchString, setSearchString] = useState("");
+  const [searchString, setSearchString] = useState(
+    searchParams.get("title") ?? ""
+  );
   const debouncedSearchString = useDebounce<string>(searchString, 500);
 
   const { data: postsData } = useGetPostsQuery(
@@ -33,8 +45,8 @@ export default function BlogPage() {
   useEffect(() => {
     const query = qs.stringify({
       page,
-      category,
-      title: debouncedSearchString,
+      ...(category && { category }),
+      ...(debouncedSearchString && { title: debouncedSearchString }),
     });
     router.push(`${pathname}?${query}`);
   }, [page, router, pathname, category, debouncedSearchString]);
