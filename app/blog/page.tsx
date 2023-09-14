@@ -73,9 +73,9 @@ export default function BlogPage() {
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
         rhoncus aliquet metus, vel luctus lorem mollis sit amet
       </p>
-      <div className="flex flex-col items-center w-100">
+      <div className="flex flex-col items-center">
         <input
-          className="shadow appearance-none border rounded w-1/2 py-4 px-3 mb-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow appearance-none border rounded w-full lg:w-1/2 py-4 px-3 mb-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           id="title"
           type="text"
           placeholder="Search..."
@@ -85,7 +85,7 @@ export default function BlogPage() {
 
         <select
           id="categories"
-          className="shadow border rounded w-1/2 py-4 px-3 mb-10 text-gray-700 focus:outline-none focus:shadow-outline"
+          className="shadow border rounded lg:w-1/2 w-full py-4 px-3 mb-10 text-gray-700 focus:outline-none focus:shadow-outline"
           onChange={onCategoryChange}
           value={category}
         >
@@ -98,7 +98,7 @@ export default function BlogPage() {
         </select>
       </div>
 
-      <div className="flex gap-10">
+      <div className="flex flex-col items-center gap-10 lg:flex-row lg:items-stretch">
         {normalizedPosts.map((post) => (
           <Post key={post.id} post={post} />
         ))}

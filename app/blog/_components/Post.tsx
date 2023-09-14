@@ -9,7 +9,7 @@ interface IPostProps {
 const Post: React.FC<IPostProps> = (props) => {
   const { post } = props;
   return (
-    <article className="w-2/6 grow bg-white rounded-lg drop-shadow-lg transition ease-in-out delay-150 hover:-translate-y-2">
+    <article className="lg:w-2/6 w-full grow bg-white rounded-lg drop-shadow-lg transition ease-in-out delay-150 hover:-translate-y-2">
       <Link href={`/blog/${post.slug}`}>
         <div className="relative h-60 overflow-hidden">
           <Image
