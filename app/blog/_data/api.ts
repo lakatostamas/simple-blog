@@ -6,6 +6,8 @@ const extendedApi = api.injectEndpoints({
     getPosts: builder.query<
       {
         posts: Array<IPost>;
+        totalCount: number;
+        pageSize: number;
       },
       string | void
     >({

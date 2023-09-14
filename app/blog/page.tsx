@@ -56,6 +56,11 @@ export default function BlogPage() {
     }));
   }, [categoriesData, postsData]);
 
+  const totalPageCount = useMemo(
+    () => Math.floor((postsData?.totalCount ?? 0) / (postsData?.pageSize ?? 0)),
+    [postsData?.totalCount, postsData?.pageSize]
+  );
+
   const onCategoryChange = (ev: React.ChangeEvent<HTMLSelectElement>) => {
     setPage(0);
     setCategory(ev.target.value);
@@ -112,7 +117,7 @@ export default function BlogPage() {
         </button>
         <button
           className="bg-indigo-600 hover:bg-indigi-800 text-white font-bold py-2 px-4 rounded"
-          onClick={() => setPage(page + 1)}
+          onClick={() => setPage(Math.min(totalPageCount, page + 1))}
         >
           Next Posts
         </button>

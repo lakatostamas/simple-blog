@@ -41,5 +41,7 @@ export async function GET(req: NextRequest) {
       pageQuery * PAGE_SIZE,
       (pageQuery + 1) * PAGE_SIZE
     ),
+    totalCount: matchingPosts.length,
+    pageSize: PAGE_SIZE,
   });
 }
